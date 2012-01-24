@@ -1,8 +1,7 @@
 zappa = require 'zappa'
 
 zappa ->
-  @enable 'default layout', 'serve jquery', 'serve sammy', 'minify'
-
+  @set 'view engine': 'eco'
   @use 'bodyParser', 'methodOverride', @app.router, 'static'
 
   @configure
@@ -12,5 +11,17 @@ zappa ->
       @use 'errorHandler'
 
   @get '/': ->
-    @lists = []
-    @render 'show_tasks'
+    lists = [
+      {
+        id: 1
+        name: 'A first list'
+        unfinishedTasks: -> []
+        completedTasks: -> []
+      },
+      {
+        id: 2
+        name: 'List the second'
+        unfinishedTasks: -> []
+        completedTasks: -> []
+      }]
+    @render 'show_tasks': { lists }
