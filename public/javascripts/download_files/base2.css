@@ -24,7 +24,7 @@ body {
 	margin: 0 auto;
 	width: 956px;
 	position: relative;
-	/* 
+	/*
 	background: url('../images/body_footer_bg.jpg') no-repeat center bottom;
 	padding-bottom: 365px;
 	 */
@@ -247,9 +247,9 @@ h1.logo a span {
 #home #content .content,
 #download #content .content,
 #demos #content .content,
-#docs #content .content, 
+#docs #content .content,
 #support #content .content,
-#development #content .content, 
+#development #content .content,
 #about #content .content {
 	background: none;
 }
@@ -504,10 +504,10 @@ div.about ul li p {
 
 /* Demos */
 
-.demos-nav, 
-.left-nav .demos-nav dt, 
-.left-nav .demos-nav dd, 
-.left-nav .demos-nav ul, 
+.demos-nav,
+.left-nav .demos-nav dt,
+.left-nav .demos-nav dd,
+.left-nav .demos-nav ul,
 .left-nav .demos-nav li {
 	margin: 0;
 	padding: 0
@@ -574,9 +574,9 @@ div.about ul li p {
 #home-content-wrapper img { border:0; }
 
 /* reset margin, padding */
-#home-content-wrapper h1, 
-#home-content-wrapper h2, 
-#home-content-wrapper h3, 
+#home-content-wrapper h1,
+#home-content-wrapper h2,
+#home-content-wrapper h3,
 #home-content-wrapper h4,
 #home-content-wrapper p { margin:0; padding:0; font-weight:normal; }
 
@@ -594,7 +594,7 @@ div.about ul li p {
 #home-content-wrapper a.btn-download:visited span { float:left; height:23px; padding:6px 15px 0 18px; overflow:hidden; font-size:1.4em; background: url(../images/btn-download.gif) no-repeat 0 0; }
 #home-content-wrapper a.btn-download:hover span,
 #home-content-wrapper a.btn-download:active span { background-position: left bottom; }
-	
+
 #home-content-header { float:left; width:100%; height:13em; }
 .ie #home-content-header { height:9.5em; }
 
@@ -673,7 +673,7 @@ div.about ul li p {
 #demo-landing .demo-landing-section li { padding:0 0 .3em; }
 #demo-landing .demo-landing-section img { float:right; margin:5px 0 0; }
 
-#demo-landing .demo-landing-section p, 
+#demo-landing .demo-landing-section p,
 #demo-landing .demo-landing-section ul { margin-right:20px; }
 
 #get-involved { width:400px; padding:0 0 30px; }
@@ -689,8 +689,8 @@ eventually we should convert the font sizes to ems -- using px for now to minimi
 /* hide markup that's pulled in from the wiki */
 
 #widget-docs .editsection,
-#widget-docs h2.top-header, 
-#overview-example, 
+#widget-docs h2.top-header,
+#overview-example,
 ul.UIAPIPlugin-toc { display:none; }
 
 .demos-nav a:link,
@@ -728,7 +728,7 @@ a.btn-demo-secondary:visited span { display:block; position:relative; height:18p
 a.btn-demo-secondary:hover span,
 a.btn-demo-secondary:active span { background-position: left bottom; }
 
-a.btn-demo-secondary span img { border:0; float:left; margin:1px 8px 0 0; } 
+a.btn-demo-secondary span img { border:0; float:left; margin:1px 8px 0 0; }
 a.btn-demo-secondary span img.menu { float:none; position:absolute; right:0; top:32%; }
 a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 
@@ -751,14 +751,14 @@ a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 #demo-config-menu li a:visited { display:block; padding:1px 8px 4px; border-bottom:1px dotted #b3b3b3; }
 * html #demo-config-menu li a:link,
 * html #demo-config-menu li a:visited { padding:1px 8px 2px; }
-#demo-config-menu li a:hover, 
+#demo-config-menu li a:hover,
 #demo-config-menu li a:active { background-color:#f6f6f6; }
 
 #demo-config-menu li.demo-config-on { background: url(../images/demo-config-on-tile.gif) repeat-x left center; }
 
-#demo-config-menu li.demo-config-on a:link, 
-#demo-config-menu li.demo-config-on a:visited, 
-#demo-config-menu li.demo-config-on a:hover, 
+#demo-config-menu li.demo-config-on a:link,
+#demo-config-menu li.demo-config-on a:visited,
+#demo-config-menu li.demo-config-on a:hover,
 #demo-config-menu li.demo-config-on a:active { background: url(../images/demo-config-on.gif) no-repeat left; padding-left:18px; color:#fff; border:0; margin-left:-10px; margin-top; 0px; margin-bottom: 0px; }
 
 #demo-source { clear:both; }
@@ -814,7 +814,7 @@ a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 
 #overview-main ul { margin-left:20px; margin-bottom:1.2em; }
 
-#widget-docs ul.options-list, 
+#widget-docs ul.options-list,
 #widget-docs ul.events-list,
 #widget-docs ul.methods-list { list-style-type: none; }
 
@@ -838,8 +838,8 @@ a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 
 #widget-docs .header-open h3 { background: url(http://ui-dev.jquery.com/images/demo-spindown-open.gif) no-repeat left; }
 
-#widget-docs .option-description, 
-#widget-docs .event-description, 
+#widget-docs .option-description,
+#widget-docs .event-description,
 #widget-docs .method-description,
 #widget-docs .option-examples,
 #widget-docs .event-examples { padding:0 10px 0 25px; }
@@ -940,7 +940,7 @@ a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 
 #wikipage .normal img { border:0; }
 
-#wikipage .editsection, 
+#wikipage .editsection,
 #wikipage br,
 #wikipage .example ul,
 #wikipage b.options,
@@ -1105,7 +1105,7 @@ a.btn-demo-secondary span strong { font-weight:normal; color:#4d4d4d; }
 #download-builder #theme-settings-group .advanced-settings h3 { display: block; font-size: 1.1em; cursor: pointer; margin-left: -3px; }
 #download-builder #theme-settings-group .advanced-settings-content { padding-left: 15px; width: 155px; }
 #download-builder #theme-settings-group .advanced-settings h3 span { float: left;  }
-#download-builder #theme-settings-group .advanced-settings label, 
+#download-builder #theme-settings-group .advanced-settings label,
 #download-builder #theme-settings-group .advanced-settings input { margin: 5px 0 2px;display: block; float: none;position: relative;  height: 1.4em;}
 #download-builder #theme-settings-group .advanced-settings input { width: 125px; }
 #download-builder #theme-settings-group .advanced-settings label { margin-top: 10px;}

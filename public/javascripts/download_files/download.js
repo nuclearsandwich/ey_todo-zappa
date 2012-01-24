@@ -22,13 +22,13 @@ function updateFilesize() {
 }
 
 function updateSelectAllLinks() {
-	
+
 	//see if each group has all selected
 	$('.component-group').each(function(){
 		if( $(this).find('input[type=checkbox]:checked').size() == $(this).find('input[type=checkbox]').size()){
 			$(this).find('.select-all:contains(Select all)').trigger('click');
 		}
-		
+
 	});
 	//if they're all selected
 	if( $('input[type=checkbox]:checked').size() == $('input[type=checkbox]').size()){
@@ -56,7 +56,7 @@ function compatVersions(){
 }
 
 $.fn.addMissingDependencies = function() {
-	
+
 	this.each(function() {
 		$(jQueryUI.dependencies[this.value]).each(function() {
 			var $input = $("input[value='"+this+"'], select[id='"+this+"']");
@@ -71,18 +71,18 @@ $.fn.addMissingDependencies = function() {
 				if( $input[0].selectedIndex == 0){
 					$input[0].selectedIndex = 1;
 					$input.parent().effect("highlight", null, 1000);
-				}	
+				}
 			}
-		});	
+		});
 	});
-	
+
 };
 
 $.fn.resolveDependencies = function() {
-	
+
 	var returnValue = true;
 	this.each(function() {
-		
+
 		var self = this, needed = false;
 		$('#download-builder-components :checked').each(function() {
 			var c = this;
@@ -90,13 +90,13 @@ $.fn.resolveDependencies = function() {
 				if(this == self.value) { needed = c; returnValue = false; }
 			});
 		});
-		
+
 		//If it is indeed needed, open a dialog
 		if(needed) {
-			
+
 			var d = $(needed).next().find('.component-title').html();
 			var c = $(this).next().find('.component-title').html();
-			
+
 			$('<div><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span><b>'+c+'</b> is a needed dependency of <b>'+d+'</b>.</p><p>Please uncheck <b>'+d+'</b> first.</p></div>')
 				.dialog({
 					modal: true,
@@ -104,15 +104,15 @@ $.fn.resolveDependencies = function() {
 					title: 'Needed dependency',
 					buttons: { Ok: function() { $(this).dialog('close'); } }
 				});
-	
+
 			return this.checked = true && $(this).parent().effect("highlight", null, 1000);
-			
+
 		}
-		
+
 	});
-	
+
 	return returnValue;
-	
+
 };
 
 function getTotalCount() {
@@ -142,12 +142,12 @@ function setFormFields(){
 	}
 	updateSelectAllLinks();
 	//set theme select to cookie val if not provided in url
-	
+
 	if($.cookie('downloadBuilderTheme') && window.location.search.indexOf('themeParams=') <= -1 ){
 		$('#theme option:contains('+ unescape($.cookie('downloadBuilderTheme')) +')').attr('selected', 'selected');
 	}
 	updateFilesize();
-	
+
 }
 
 //normalize theme hrefs for comparison
@@ -202,8 +202,8 @@ $(document).ready(function() {
 			$('#t-name').data('suggestedEdit', true);
 			$('#t-name').val(escape($(this).val().split(' ').join('-').toLowerCase().replace('.', '').replace('#', '')) );
 		}
-	});	
-	
+	});
+
 	$('#t-name').keyup(function(){
 		$(this).data('edited', true);
 		$('#t-name').removeData('suggestedEdit');
@@ -213,15 +213,15 @@ $(document).ready(function() {
 		if($(this).val() == ''){ $('#t-name').removeData('edited'); }
 	});
 	$('.advanced-settings-heading').click(function(){
-			$(this).next().slideToggle();	
+			$(this).next().slideToggle();
 			$(this).find('span').toggleClass('ui-icon-triangle-1-s');
 	})
 	.prepend('<span class="ui-icon ui-icon-triangle-1-e"></span>')
 	.next().hide();
-		
+
 	//Append filesize setting box
 	//$('#download-builder-settings > div:eq(2)').before('<div id="filesize" class="download-builder-settings-group"><h2>Total Filesize</h2><p>The size of the bundled files in the package will be approximately:</p><p class="filesize-info">0kb <em>uncompressed</em></p><p class="filesize-info">0kb <em>minified</em></p></div>');
-	
+
 	//check if any widgets should be disabled
 	compatVersions();
 
@@ -243,7 +243,7 @@ $(document).ready(function() {
 		else {
 			$('.advanced-settings:visible').slideUp();
 		}
-		
+
 		updateSelectAllLinks();
 		compatVersions();
 		updateFilesize();
@@ -260,18 +260,18 @@ $(document).ready(function() {
 
 	$('#download_zip').bind('click', function(event) {
 		return $(this).attr('disabled') != 'false';
-	});	
-	
+	});
+
 	//Selected components
 	$('div.download-builder-header h2').html('Components <em class="components-selected">(0 of '+(getTotalCount())+' selected)</em>');
-	
+
 	//Select all link
 	$('div.download-builder-header').append('<a href="#" class="select-all">Select all components</a>');
 	$('div.download-builder-header a.select-all').bind('click', function() {
 		if(this.innerHTML.indexOf('Deselect') != -1) {
 			$('#download-builder-components input[type=checkbox]').attr('checked', false);
 			if( window.location.search.indexOf('themeParams=') <= -1 ){
-				$("select#theme")[0].selectedIndex = 0;	
+				$("select#theme")[0].selectedIndex = 0;
 			}
 			this.innerHTML = "Select all components";
 		} else {
@@ -279,11 +279,11 @@ $(document).ready(function() {
 
 				if($("select#theme")[0].selectedIndex == 0){
 					$("select#theme")[0].selectedIndex = 1;
-				}	
-			
+				}
+
 			this.innerHTML = "Deselect all components";
 		}
-		
+
 		updateFilesize();
 
 		// $('form').trigger('change');
@@ -292,11 +292,11 @@ $(document).ready(function() {
 		return false;
 
 	});
-	
+
 	//Select all category
 	$('fieldset.component-group-list:not(#core-component-group fieldset)').prepend('<a href="#" class="select-all">Select all</a>');
 	$('fieldset a.select-all').bind('click', function() {
-		
+
 		if(this.innerHTML.indexOf('Deselect') != -1) {
 			var resolved = $('input[type=checkbox]', this.parentNode).attr('checked', false).resolveDependencies();
 			$(this).text('Select all');
@@ -304,40 +304,40 @@ $(document).ready(function() {
 			$('input[type=checkbox]', this.parentNode).attr('checked', true).addMissingDependencies();
 			$(this).text('Deselect all');
 		}
-		
+
 		updateSelectAllLinks();
 		updateFilesize();
-		
+
 		return false;
 
-	});	
-	
+	});
+
 	//Bind event to checkboxes
 	$('#download-builder-components input[type=checkbox]')
 		.attr('checked', false)
 		.bind($.browser.msie ? 'click' : 'change', function(event) {
-		
+
 			//If it has been unchecked, recheck if it's a needed dependency for something
 			if(!this.checked) {
 				$(this).resolveDependencies();
 			}
-					
+
 			//Add missing dependencies for this item
 			$(this).addMissingDependencies();
-			
+
 			updateFilesize();
-			
+
 		});
-		
+
 		//$('form').trigger('change');
 		setFormFields();
-		
+
 		if($('#theme')[0].selectedIndex == 0){
 			$('.advanced-settings').hide();
 		}
-		
+
 		formChanged();
-	
+
 	$(".themes-link").click(function() {
 		$($(this).attr("href")).slideToggle();
 		return false;
