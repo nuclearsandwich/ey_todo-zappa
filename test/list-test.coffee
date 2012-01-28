@@ -32,10 +32,8 @@ vows.describe('List').addBatch(
 
    'When we remove the task it is returned': ({task, list}) ->
      assert.isString list.removeTask task
-
    'Then the tasks list does not include the task': ({task, list}) ->
      assert.isTrue(list.tasks.indexOf(task) is -1)
-
    'Then the length of tasks decreases': ({task, list}) ->
      assert.equal list.tasks.length, 0
 
@@ -44,21 +42,24 @@ vows.describe('List').addBatch(
       unfinishedTasks: [1..3].map -> { name: 'unfinished', isCompleted: false }
       completedTasks: [1..4].map -> { name: 'completed', isCompleted: true }
       list: new List 'A task list'
+
     'When getting unfinishedTasks':
       topic: ({list, unfinishedTasks, completedTasks}) ->
         unfinishedTasks.forEach (task) -> list.addTask task
         completedTasks.forEach (task) -> list.addTask task
         list.unfinishedTasks()
+
       'The list contains no completed tasks': (unfinishedTasks) ->
         assert.isFalse unfinishedTasks.some (task) -> task.isCompleted
+
     'When getting completedTasks':
       topic: ({list, unfinishedTasks, completedTasks}) ->
         unfinishedTasks.forEach (task) -> list.addTask task
         completedTasks.forEach (task) -> list.addTask task
         list.completedTasks()
+
       'The list contains only completed tasks': (completedTasks) ->
         assert.isTrue completedTasks.every (task) -> task.isCompleted
-
 
 ).export module
 
