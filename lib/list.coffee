@@ -9,7 +9,7 @@ module.exports = class List
     @tasks = @tasks.filter (t) -> t != task
     task
 
-  unfinishedTasks: -> @tasks.filter (task) -> not task.isCompleted
+  unfinishedTasks: -> @tasks.filter (task) -> not task.isCompleted()
 
-  completedTasks: -> @tasks.filter (task) -> task.isCompleted
+  completedTasks: -> @tasks.filter (task) -> task.isCompleted()
 

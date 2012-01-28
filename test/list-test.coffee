@@ -38,27 +38,30 @@ vows.describe('List').addBatch(
      assert.equal list.tasks.length, 0
 
   'With a list, unfinished tasks, and completed tasks':
-    topic:
-      unfinishedTasks: [1..3].map -> { name: 'unfinished', isCompleted: false }
-      completedTasks: [1..4].map -> { name: 'completed', isCompleted: true }
-      list: new List 'A task list'
+    topic: ->
+      unfinishedTasks = [1..3].map ->
+        { name: 'unfinished', isCompleted: -> false }
+      completedTasks = [1..4].map ->
+        { name: 'completed', isCompleted: -> true }
+      list = new List 'A task list'
+      unfinishedTasks.forEach (task) -> list.addTask task
+      completedTasks.forEach (task) -> list.addTask task
+      {unfinishedTasks, completedTasks, list}
 
     'When getting unfinishedTasks':
       topic: ({list, unfinishedTasks, completedTasks}) ->
-        unfinishedTasks.forEach (task) -> list.addTask task
-        completedTasks.forEach (task) -> list.addTask task
         list.unfinishedTasks()
 
       'The list contains no completed tasks': (unfinishedTasks) ->
-        assert.isFalse unfinishedTasks.some (task) -> task.isCompleted
+        assert.equal unfinishedTasks.length, 3
+        assert.isFalse unfinishedTasks.some (task) -> task.isCompleted()
 
     'When getting completedTasks':
       topic: ({list, unfinishedTasks, completedTasks}) ->
-        unfinishedTasks.forEach (task) -> list.addTask task
-        completedTasks.forEach (task) -> list.addTask task
         list.completedTasks()
 
       'The list contains only completed tasks': (completedTasks) ->
+        assert.equal completedTasks.length, 4
         assert.isTrue completedTasks.every (task) -> task.isCompleted
 
 ).export module
