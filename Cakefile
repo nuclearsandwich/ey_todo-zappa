@@ -6,7 +6,7 @@ system = (name, args...) ->
   proc.stdout.on   'data', (buffer) -> console.log buffer.toString()
   proc.on          'exit', (status) -> process.exit(1) if status isnt 0
 
-testFiles =['test/list-test.coffee']
+testFiles =[ 'test/list-test.coffee', 'test/task-test.coffee' ]
 
 rerunCommand = ['node_modules/.bin/runjs']
 runCommand = [ 'node_modules/.bin/coffee', 'app.coffee' ]
