@@ -6,8 +6,8 @@ system = (name, args...) ->
   proc.stdout.on   'data', (buffer) -> console.log buffer.toString()
   proc.on          'exit', (status) -> process.exit(1) if status isnt 0
 
-testFiles =[ 'test/list-test.coffee', 'test/task-test.coffee',
-  'test/list-mapper-test.coffee' ]
+testFiles =[ 'test/list-test.coffee', 'test/task-test.coffee' ]
+
 
 rerunCommand = ['node_modules/.bin/runjs']
 runCommand = [ 'node_modules/.bin/coffee', 'app.coffee' ]
@@ -23,4 +23,10 @@ task 'rerun:test', 'Run and rerun the Vows tests whenever files change.', ->
 task 'rerun', 'Run and rerun the Zappa app whenever files change.', ->
   system (rerunCommand.concat runCommand)...
 
+# Database Creation Tasks
+task 'db:destroy_and_recreate', 'Drop and recreate the database.', ->
+  env = process.env.NODE_ENV || 'development'
+  pgClient = (require './db/client') env
+  schema = require './db/schema'
+  schema.destructivelyAndNaivelyDropAndRecreateDatabaseTables pgClient
 

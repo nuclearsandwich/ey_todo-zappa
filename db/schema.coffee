@@ -1,12 +1,8 @@
-pg = require 'pg'
-
-client = new pg.Client {
-  user: 'steven'
-  database: 'todonode'
-  password: null
-  port: 5432
-  host: 'localhost'
-}
+callback = (err, result) ->
+  if err?
+    console.log "ERROR: #{err}"
+  else
+    console.log "SUCCESS: #{result}"
 
 createListString = """
   CREATE TABLE lists (
@@ -24,23 +20,31 @@ createTaskString = """
   );
   """
 
+dropListTable = (client) ->
+  client.query "DROP TABLE lists;", callback
+
+dropTaskTable = (client) ->
+  client.query "DROP TABLE tasks;", callback
+
+
 createListTable = (client) ->
-  client.query createListString, (err, result) ->
-    if err?
-      console.log err
-    else
-      console.log result
+  client.query createListString, callback
 
 createTaskTable = (client) ->
-  client.query createTaskString, (err, result) ->
-    if err?
-      console.log err
-    else
-      console.log result
+  client.query createTaskString, callback
 
 createAllTheTables = (client) ->
   createListTable client
   createTaskTable client
 
-module.exports = { client, createAllTheTables, createListTable, createTaskTable }
+destructivelyAndNaivelyDropAndRecreateDatabaseTables = (client) ->
+  dropTaskTable client
+  dropListTable client
+  createListTable client
+  createTaskTable client
+  client.on 'drain', client.end.bind client
+  client.connect()
+
+module.exports = {destructivelyAndNaivelyDropAndRecreateDatabaseTables}
+
 
