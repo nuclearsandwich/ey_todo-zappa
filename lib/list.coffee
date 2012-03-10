@@ -1,5 +1,10 @@
+pg = require 'pg'
+
 module.exports = class List
-  constructor: (@name) -> @tasks = []
+  constructor: (@name) ->
+    @pgClient = List.pgClient
+    @dirty = true
+    @tasks = []
 
   addTask: (task) ->
     @tasks.push task
@@ -13,3 +18,16 @@ module.exports = class List
 
   completedTasks: -> @tasks.filter (task) -> task.isCompleted()
 
+  save: (callback) ->
+    callback null, this
+
+  destroy: (callback) ->
+    callback null, this
+
+  # Methods on the class / constructor function.
+  @all: (callback) ->
+    callback null, @allLists
+
+  @get: (listId, callback) ->
+    console.log "getting list #{listId}"
+    callback null, @allLists[listId]

@@ -20,16 +20,27 @@ module.exports = listMapper = {
   # Updates a list with the given id with the property values of the given
   # object. Returns the object.
   updateList: (listId, listProperties, callback) ->
-    @get listId, (err, list) ->
+    @getList listId, (err, list) ->
       if err?
         callback err
       else
         list.name = listProperties.name
         callback null, list
 
+  # Remove the list with specified id from the datastore, return the deleted
+  # list in a callback function.
+  destroyList: (listId, callback) ->
+    list = @allLists.filter((list) -> list.id is listId)[0]
+    if list?
+      @allLists = @allLists.filter (list) -> list.id isnt listId
+      callback null, list
+    else
+      callback new Error "List with id: #{listId} not found."
+
+
   # Retrieve a List from the datastore by its id. Returns either a List object
   # or undefined if no list matches the id.
-  get: (listId, callback) ->
+  getList: (listId, callback) ->
     callback null, @allLists[listId]
 
   nextId: -> idCounter += 1
