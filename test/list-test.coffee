@@ -108,10 +108,35 @@ vows.describe('List').addBatch(
         list = new List "A pretty cool list"
         list.addTask task
         list.save @callback
+        return
       'Then the tasks are saved and have the proper listId': (err, list) ->
         assert.isNull err
         assert.isTrue list.tasks[0].isSaved()
         assert.equal list.tasks[0].listId, list.id
+      'When retrieving it with `List.get`':
+        topic: (err, list) ->
+          List.get list.id, @callback
+          return
+        'Then the retrieved list is equal to the saved list': (err, list) ->
+          assert.isNull err
+          assert.equal list.name, 'A persisted list'
+          assert.lengthOf list.tasks, 1
+          assert.equal retrievedList, list
+
+  'When a list is destroyed':
+    topic: ->
+      list = new List 'A deletable list'
+      list.save (err, l) =>
+        l.destroy @callback
+    'When the list is retrieved':
+      topic: (e, list) ->
+        console.log "ERROR", e
+        console.log e is list
+        console.log "LIST", list
+        List.get list.id, @callback
+      'Then null is returned': (err, list) ->
+        assert.isNull list
+
 
 ).export module
 

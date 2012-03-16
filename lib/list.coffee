@@ -1,4 +1,5 @@
 pg = require 'pg'
+Task = require './task'
 
 module.exports = class List
   constructor: (@name) ->
@@ -46,5 +47,52 @@ module.exports = class List
             if savedTaskCount is self.tasks.length
               callback null, self
     return
+
+  destroy: (callback) ->
+    self = this
+    @client.query {
+      name: 'delete-list'
+      text: 'DELETE FROM lists WHERE id = $1;'
+      values: [@id]
+    }, (err, result) ->
+      if err?
+        callback err, null
+        return
+      console.log "returning from destroy with", self
+      callback null, self
+    return
+
+
+  @get: (listId, callback) ->
+    client = new pg.Client @dbConfig
+    client.on 'drain', client.end.bind client
+    client.connect()
+    client.query {
+      name: 'select-by-id'
+      text: 'SELECT * FROM lists WHERE id = $1 LIMIT 1;'
+      values: [listId]
+    }, (err, result) ->
+      if err?
+        callback err, null
+        return
+      if result.rows.length is 0
+        callback null, null
+        return
+      listRow = result.rows[0]
+      list = new List listRow.name
+      list.id = listRow.id
+      client.query {
+        name: 'select-tasks-by-list-id'
+        text: 'SELECT * FROM tasks WHERE list_id = $1;'
+        values: [listId]
+      }, (err, result) ->
+        callback err, null if err?
+        result.rows.forEach (taskRow) ->
+          task = {}
+          task.name = taskRow.name
+          task.completed = taskRow.completed
+          task.listId = taskRow.list_id
+          list.addTask task
+        callback null, list
 
   @setDBConfig: (@dbConfig) ->
